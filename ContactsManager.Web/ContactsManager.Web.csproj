@@ -247,7 +247,12 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\ContactsManager.Domain\ContactsManager.Domain.csproj">
+      <Project>{4dcc9f2d-146b-40cc-b6c5-0fe35638eabb}</Project>
+      <Name>ContactsManager.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />

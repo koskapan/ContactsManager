@@ -9,7 +9,7 @@ namespace ContactsManager.Domain.Abstract
 {
     public interface IUnitOfWork
     {
-        IGenericRepository<IDataEntity> ContactsRepository { get; }
+        IGenericRepository<Contact> ContactsRepository { get; } 
         void SaveChanges();
     }
 }

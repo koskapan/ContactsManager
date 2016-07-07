@@ -15,7 +15,7 @@ namespace ContactsManager.Domain.Concrete
 
         private IGenericRepository<Contact> contactsRepository;
 
-        IGenericRepository<Contact> ContactsRepository
+        public IGenericRepository<Contact> ContactsRepository
         {
             get
             {

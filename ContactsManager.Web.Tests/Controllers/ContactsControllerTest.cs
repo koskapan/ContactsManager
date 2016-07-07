@@ -1,0 +1,41 @@
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
+using ContactsManager.Domain.Entity;
+using ContactsManager.Domain.Abstract;
+using System.Collections.Generic;
+using ContactsManager.Web.Controllers;
+using System.Linq;
+
+namespace ContactsManager.Web.Tests.Controllers
+{
+    [TestClass]
+    public class ContactsControllerTest
+    {
+        [TestMethod]
+        public void Can_Paginate()
+        {
+            Mock<IUnitOfWork> mock = new Mock<IUnitOfWork>();
+            mock.Setup(m => m.ContactsRepository.Get()).Returns(new List<Contact>
+            {
+                new Contact { Id = 0, LastName = "LastName 0" },
+                new Contact { Id = 1, LastName = "LastName 1" },
+                new Contact { Id = 2, LastName = "LastName 2" },
+                new Contact { Id = 3, LastName = "LastName 3" },
+                new Contact { Id = 4, LastName = "LastName 4" },
+                new Contact { Id = 5, LastName = "LastName 5" },
+                new Contact { Id = 6, LastName = "LastName 6" },
+                new Contact { Id = 7, LastName = "LastName 7" },
+                new Contact { Id = 8, LastName = "LastName 8" },
+                new Contact { Id = 9, LastName = "LastName 9" },
+                new Contact { Id = 10, LastName = "LastName 10" }
+            });
+            ContactsController controller = new ContactsController(mock.Object);
+
+            var result = controller.Get(2, 4);
+
+            Assert.AreEqual(4, result.Count());
+            Assert.AreEqual(4, result.ToList()[0]);
+        }
+    }
+}

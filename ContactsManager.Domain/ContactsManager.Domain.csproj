@@ -49,7 +49,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Abstract\IDataEntity.cs" />
     <Compile Include="Abstract\IGenericRepository.cs" />
     <Compile Include="Abstract\IObjectContext.cs" />
     <Compile Include="Abstract\IUnitOfWork.cs" />

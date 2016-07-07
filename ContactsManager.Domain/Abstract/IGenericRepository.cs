@@ -7,13 +7,12 @@ using System.Threading.Tasks;
 
 namespace ContactsManager.Domain.Abstract
 {
-    public interface IGenericRepository<T> where T : class, IDataEntity
+    public interface IGenericRepository<T> where T : class
     {
         IQueryable<T> AsQueryable();
         IEnumerable<T> Get();
         IEnumerable<T> Get(Expression<Func<T, bool>> predicate);
         IEnumerable<T> Get(int page_num, int page_size);
-        T Get(int id);
         void Create(T entity);
         void Edit(T entity);
         void Delete(T entity);

@@ -27,7 +27,7 @@ namespace ContactsManager.Domain.Concrete
             context.SaveChanges();
         }
 
-        public IObjectSet<TEntity> CreateObjectSet<TEntity>() where TEntity : class, IDataEntity
+        public IObjectSet<TEntity> CreateObjectSet<TEntity>() where TEntity : class
         {
             return context.CreateObjectSet<TEntity>();
         }

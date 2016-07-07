@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ContactsManager.Domain.Entity
 {
-    public class Contact : IDataEntity
+    public class Contact
     {
         public int Id { get; set; }
         public Genders Gender { get; set; }

@@ -9,7 +9,7 @@ using System.Data.Entity.Core.Objects;
 
 namespace ContactsManager.Domain.Concrete
 {
-    public class Repository<T> : IGenericRepository<T> where T : class, IDataEntity
+    public class Repository<T> : IGenericRepository<T> where T : class
     {
         private IObjectSet<T> objectSet;
 
@@ -41,11 +41,6 @@ namespace ContactsManager.Domain.Concrete
         public IEnumerable<T> Get()
         {
             return objectSet.ToList();
-        }
-
-        public T Get(int id)
-        {
-            return objectSet.First(e => e.Id == id);
         }
 
         public IEnumerable<T> Get(Expression<Func<T, bool>> predicate)

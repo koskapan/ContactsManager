@@ -9,7 +9,7 @@ namespace ContactsManager.Domain.Abstract
 {
     public interface IObjectContext: IDisposable
     {
-        IObjectSet<TEntity> CreateObjectSet<TEntity>() where TEntity : class, IDataEntity;
+        IObjectSet<TEntity> CreateObjectSet<TEntity>() where TEntity : class;
         void SaveChanges();
     }
 }

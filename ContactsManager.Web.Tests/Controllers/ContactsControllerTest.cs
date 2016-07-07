@@ -13,10 +13,10 @@ namespace ContactsManager.Web.Tests.Controllers
     public class ContactsControllerTest
     {
         [TestMethod]
-        public void Can_Paginate()
+        public void Can_Get_Values()
         {
             Mock<IUnitOfWork> mock = new Mock<IUnitOfWork>();
-            mock.Setup(m => m.ContactsRepository.Get()).Returns(new List<Contact>
+            mock.Setup(m => m.ContactsRepository.Get(It.IsAny<int>(), It.IsAny<int>())).Returns(new List<Contact>
             {
                 new Contact { Id = 0, LastName = "LastName 0" },
                 new Contact { Id = 1, LastName = "LastName 1" },
@@ -32,10 +32,9 @@ namespace ContactsManager.Web.Tests.Controllers
             });
             ContactsController controller = new ContactsController(mock.Object);
 
-            var result = controller.Get(2, 4);
+            var result = controller.Get();
 
-            Assert.AreEqual(4, result.Count());
-            Assert.AreEqual(4, result.ToList()[0]);
+            Assert.AreEqual(11, result.Count());
         }
     }
 }

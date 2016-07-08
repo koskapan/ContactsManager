@@ -1,25 +1,28 @@
-﻿
+﻿using Autofac;
+using Autofac.Integration.WebApi;
 using ContactsManager.Domain.Abstract;
 using ContactsManager.Domain.Concrete;
-using System.Data.Entity.Infrastructure;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Web;
+using System.Web.Http;
 using System.Web.Mvc;
 
 namespace ContactsManager.Web.Utils
 {
-    public class AutofacConfig
+    public static class AutofacConfig
     {
         public static void ConfigureContainer()
-        {/*
+        {
             var builder = new ContainerBuilder();
-            builder.RegisterControllers(typeof(WebApiApplication).Assembly);
-            var context = new EfDbContext();
-            var adaprer = (IObjectContextAdapter)context;
-            builder.RegisterType<ObjectContextAdapter>().As<IObjectContext>().WithParameter("context", adaprer.ObjectContext).InstancePerLifetimeScope();
-            builder.RegisterType<UnitOfWork>().As<IUnitOfWork>();
+            var configuration = GlobalConfiguration.Configuration;
+            builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
+            builder.RegisterType<ContactRepository>().As<IContactRepository>().InstancePerLifetimeScope();
 
-            var container = builder.Build();
-
-            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));*/
+            IContainer container = builder.Build();
+            configuration.DependencyResolver = new AutofacWebApiDependencyResolver(container);
         }
     }
 }

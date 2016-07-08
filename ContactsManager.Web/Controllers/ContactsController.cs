@@ -1,35 +1,35 @@
 ﻿using ContactsManager.Domain.Abstract;
+using ContactsManager.Domain.Concrete;
 using ContactsManager.Domain.Entity;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Web.Http;
 
 namespace ContactsManager.Web.Controllers
 {
-    [RoutePrefix("api/v1/contacts")]
     public class ContactsController : ApiController
     {
-        private IUnitOfWork unitOfWork;
-
-        public ContactsController(IUnitOfWork unitOfWork)
+        private IContactRepository repository;
+        
+        public ContactsController(IContactRepository repository)
         {
-            this.unitOfWork = unitOfWork;
+            this.repository = repository;
         }
-
+        
         // GET api/values
         [HttpGet]
-        [Route("all/{page_num=1}")]
-        public IEnumerable<Contact> Get(int page_num = 1, int page_size = 1)
+        public IEnumerable<Contact> Get()
         {
-            return unitOfWork.ContactsRepository.Get(page_num, page_size);
+            return repository.Get();
         }
 
         // GET api/values/5
         [HttpGet]
         public Contact Get(int id)
         {
-            return unitOfWork.ContactsRepository.Get(c => c.Id == id).FirstOrDefault();
+            return repository.Get(c => c.Id == id).FirstOrDefault();
         }
 
         // POST api/values

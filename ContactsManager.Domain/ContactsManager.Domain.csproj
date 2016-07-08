@@ -49,13 +49,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Abstract\IGenericRepository.cs" />
-    <Compile Include="Abstract\IObjectContext.cs" />
-    <Compile Include="Abstract\IUnitOfWork.cs" />
+    <Compile Include="Abstract\IContactRepository.cs" />
+    <Compile Include="Concrete\ContactRepository.cs" />
     <Compile Include="Concrete\EfDbContext.cs" />
-    <Compile Include="Concrete\ObjectContextAdapter.cs" />
-    <Compile Include="Concrete\Repository.cs" />
-    <Compile Include="Concrete\UnitOfWork.cs" />
     <Compile Include="Entity\Contact.cs" />
     <Compile Include="Migrations\201607071422013_Initial.cs" />
     <Compile Include="Migrations\201607071422013_Initial.Designer.cs">

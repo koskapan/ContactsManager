@@ -15,8 +15,8 @@ namespace ContactsManager.Web.Tests.Controllers
         [TestMethod]
         public void Can_Get_Values()
         {
-            Mock<IUnitOfWork> mock = new Mock<IUnitOfWork>();
-            mock.Setup(m => m.ContactsRepository.Get(It.IsAny<int>(), It.IsAny<int>())).Returns(new List<Contact>
+            Mock<IContactRepository> mock = new Mock<IContactRepository>();
+            mock.Setup(m => m.Get()).Returns(new List<Contact>
             {
                 new Contact { Id = 0, LastName = "LastName 0" },
                 new Contact { Id = 1, LastName = "LastName 1" },

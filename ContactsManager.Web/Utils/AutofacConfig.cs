@@ -16,7 +16,7 @@ namespace ContactsManager.Web.Utils
             builder.RegisterControllers(typeof(ContactsManager.Web.Controllers.ContactsController).Assembly);
             var context = new EfDbContext();
             var adaprer = (IObjectContextAdapter)context;
-            builder.RegisterType<ObjectContextAdapter>().As<IObjectContext>().WithParameter("context", adaprer.ObjectContext);
+            builder.RegisterType<ObjectContextAdapter>().As<IObjectContext>().WithParameter("context", adaprer.ObjectContext).InstancePerLifetimeScope();
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>();
 
             var container = builder.Build();

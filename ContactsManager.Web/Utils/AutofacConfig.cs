@@ -13,7 +13,7 @@ namespace ContactsManager.Web.Utils
         public static void ConfigureContainer()
         {
             var builder = new ContainerBuilder();
-            builder.RegisterControllers(typeof(ContactsManager.Web.Controllers.ContactsController).Assembly);
+            builder.RegisterControllers(typeof(WebApiApplication).Assembly);
             var context = new EfDbContext();
             var adaprer = (IObjectContextAdapter)context;
             builder.RegisterType<ObjectContextAdapter>().As<IObjectContext>().WithParameter("context", adaprer.ObjectContext).InstancePerLifetimeScope();

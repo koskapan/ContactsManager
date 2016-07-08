@@ -1,5 +1,4 @@
-﻿using ContactsManager.Web.Utils;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -14,8 +13,6 @@ namespace ContactsManager.Web
     {
         protected void Application_Start()
         {
-            AutofacConfig.ConfigureContainer();
-
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

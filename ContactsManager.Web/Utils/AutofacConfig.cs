@@ -1,6 +1,4 @@
-﻿using Autofac;
-using Autofac.Core;
-using Autofac.Integration.Mvc;
+﻿
 using ContactsManager.Domain.Abstract;
 using ContactsManager.Domain.Concrete;
 using System.Data.Entity.Infrastructure;
@@ -11,7 +9,7 @@ namespace ContactsManager.Web.Utils
     public class AutofacConfig
     {
         public static void ConfigureContainer()
-        {
+        {/*
             var builder = new ContainerBuilder();
             builder.RegisterControllers(typeof(WebApiApplication).Assembly);
             var context = new EfDbContext();
@@ -21,7 +19,7 @@ namespace ContactsManager.Web.Utils
 
             var container = builder.Build();
 
-            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));*/
         }
     }
 }

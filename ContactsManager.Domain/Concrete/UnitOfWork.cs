@@ -3,6 +3,7 @@ using ContactsManager.Domain.Entity;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core.Objects;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,7 +25,7 @@ namespace ContactsManager.Domain.Concrete
                 return contactsRepository;
             }
         }
-
+        
         public UnitOfWork(IObjectContext context)
         {
             objectContext = context;

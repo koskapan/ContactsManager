@@ -34,20 +34,23 @@ namespace ContactsManager.Web.Controllers
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody]string value)
+        public void Post([FromBody]Contact value)
         {
+            repository.Create(value);
         }
 
         // PUT api/values/5
         [HttpPut]
-        public void Put(int id, [FromBody]string value)
+        public void Put(int id, [FromBody]Contact value)
         {
+            repository.Edit(id, value);
         }
 
         // DELETE api/values/5
         [HttpDelete]
         public void Delete(int id)
         {
+            repository.Delete(id);
         }
     }
 }

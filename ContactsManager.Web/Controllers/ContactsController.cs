@@ -9,6 +9,7 @@ using System.Web.Http;
 
 namespace ContactsManager.Web.Controllers
 {
+    [RoutePrefix("api/v1/contacts")]
     public class ContactsController : ApiController
     {
         private IContactRepository repository;
@@ -23,6 +24,21 @@ namespace ContactsManager.Web.Controllers
         public IEnumerable<Contact> Get()
         {
             return repository.Get();
+        }
+        
+        [HttpGet]
+        [Route("all")]
+        public IEnumerable<Contact> Get(int page_num  = 1, int page_size = 20, string query = "")
+        {
+            string query_string = query.ToLower();
+            if (query_string == "")
+            {
+                return repository.AsQueryable().Skip((page_num - 1) * page_size).Take(page_size);
+            }
+            else
+            {
+                return repository.AsQueryable().Where(c =>c.FirstName.ToLower().Contains(query_string));
+            }
         }
 
         // GET api/values/5

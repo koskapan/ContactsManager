@@ -19,22 +19,32 @@ namespace ContactsManager.Domain.Concrete
 
         public IQueryable<Contact> AsQueryable()
         {
-            throw new NotImplementedException();
+            return context.Contacts.AsQueryable();
         }
 
         public void Create(Contact entity)
         {
-            throw new NotImplementedException();
+            context.Contacts.Add(entity);
+            context.SaveChanges();
         }
 
-        public void Delete(Contact entity)
+        public void Delete(int id)
         {
-            throw new NotImplementedException();
+            var contactForDelete = Get(c => c.Id == id).FirstOrDefault();
+            if (contactForDelete != null)
+            {
+                context.Contacts.Remove(contactForDelete);
+                context.SaveChanges();
+            }
         }
 
-        public void Edit(Contact entity)
+        public void Edit(int id, Contact entity)
         {
-            throw new NotImplementedException();
+            if (entity.Id == id)
+            {
+                context.Entry(entity).State = System.Data.Entity.EntityState.Modified;
+                context.SaveChanges();
+            }
         }
 
         public IEnumerable<Contact> Get()

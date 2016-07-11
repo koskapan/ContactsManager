@@ -13,7 +13,7 @@ namespace ContactsManager.Domain.Abstract
         IEnumerable<Contact> Get();
         IEnumerable<Contact> Get(Func<Contact, bool> predicate);
         void Create(Contact entity);
-        void Edit(Contact entity);
-        void Delete(Contact entity);
+        void Edit(int id, Contact entity);
+        void Delete(int id);
     }
 }

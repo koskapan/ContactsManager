@@ -5,7 +5,11 @@ namespace ContactsManager.Domain.Migrations
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
-
+    using Newtonsoft.Json;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Reflection;
     internal sealed class Configuration : DbMigrationsConfiguration<ContactsManager.Domain.Concrete.EfDbContext>
     {
         public Configuration()
@@ -27,10 +31,14 @@ namespace ContactsManager.Domain.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
-            context.Contacts.AddOrUpdate(c => c.Id,
-                new Contact { Id = 0, LastName = "Kaprov" },
-                new Contact { Id = 1, LastName = "Ivanov" }
-            );
+            var appDomain = System.AppDomain.CurrentDomain;
+            var basePath = appDomain.RelativeSearchPath ?? appDomain.BaseDirectory;
+            Path.Combine(basePath, "MOCK_DATA.json");
+            IEnumerable<Contact> contacts = JsonConvert.DeserializeObject<IEnumerable<Contact>>(File.ReadAllText(Path.Combine(basePath, "MOCK_DATA.json")));
+            foreach (var c in contacts)
+            {
+                context.Contacts.Add(c);
+            }
         }
     }
 }

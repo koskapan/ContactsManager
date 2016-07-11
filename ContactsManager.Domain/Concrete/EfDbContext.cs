@@ -10,7 +10,10 @@ namespace ContactsManager.Domain.Concrete
 {
     public class EfDbContext : DbContext
     {
-        public EfDbContext() : base("DefaultConnection") { }
+        public EfDbContext() : base("DefaultConnection")
+        {
+            //Database.SetInitializer(new DropCreateDatabaseAlways<EfDbContext>());
+        }
 
         public DbSet<Contact> Contacts { get; set; }
     }

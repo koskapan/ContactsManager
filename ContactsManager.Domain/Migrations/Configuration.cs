@@ -35,9 +35,9 @@ namespace ContactsManager.Domain.Migrations
             var basePath = appDomain.RelativeSearchPath ?? appDomain.BaseDirectory;
             Path.Combine(basePath, "MOCK_DATA.json");
             IEnumerable<Contact> contacts = JsonConvert.DeserializeObject<IEnumerable<Contact>>(File.ReadAllText(Path.Combine(basePath, "MOCK_DATA.json")));
-            foreach (var c in contacts)
+            foreach (Contact c in contacts)
             {
-                context.Contacts.Add(c);
+                context.Contacts.AddOrUpdate(ce => ce.Id, c);
             }
         }
     }

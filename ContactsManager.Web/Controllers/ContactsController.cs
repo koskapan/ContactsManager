@@ -18,31 +18,16 @@ namespace ContactsManager.Web.Controllers
         {
             this.repository = repository;
         }
-        
-        // GET api/values
+                
         [HttpGet]
-        public IEnumerable<Contact> Get()
+        public IEnumerable<Contact> Get(int page_num  = 1, int page_size = 20)
         {
-            return repository.Get();
-        }
-        
-        [HttpGet]
-        [Route("all")]
-        public IEnumerable<Contact> Get(int page_num  = 1, int page_size = 20, string query = "")
-        {
-            string query_string = query.ToLower();
-            if (query_string == "")
-            {
-                return repository.AsQueryable().Skip((page_num - 1) * page_size).Take(page_size);
-            }
-            else
-            {
-                return repository.AsQueryable().Where(c =>c.FirstName.ToLower().Contains(query_string));
-            }
+            return repository.AsQueryable().Skip((page_num - 1) * page_size).Take(page_size);
         }
 
         // GET api/values/5
         [HttpGet]
+        [Route("{id}")]
         public Contact Get(int id)
         {
             return repository.Get(c => c.Id == id).FirstOrDefault();

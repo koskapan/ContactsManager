@@ -6,6 +6,7 @@ using ContactsManager.Domain.Abstract;
 using System.Collections.Generic;
 using ContactsManager.Web.Controllers;
 using System.Linq;
+using System.Web.Http.OData.Query;
 
 namespace ContactsManager.Web.Tests.Controllers
 {
@@ -13,7 +14,7 @@ namespace ContactsManager.Web.Tests.Controllers
     public class ContactsControllerTest
     {
         [TestMethod]
-        public void Can_Get_Values()
+        public void Can_Get_Value()
         {
             Mock<IContactRepository> mock = new Mock<IContactRepository>();
             mock.Setup(m => m.Get()).Returns(new List<Contact>
@@ -32,9 +33,9 @@ namespace ContactsManager.Web.Tests.Controllers
             });
             ContactsController controller = new ContactsController(mock.Object);
 
-            var result = controller.Get();
+            var result = controller.Get(1);
 
-            Assert.AreEqual(11, result.Count());
+            Assert.AreEqual(1, result.Id);
         }
         
     }

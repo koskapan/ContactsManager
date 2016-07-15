@@ -36,5 +36,6 @@ namespace ContactsManager.Web.Tests.Controllers
 
             Assert.AreEqual(11, result.Count());
         }
+        
     }
 }

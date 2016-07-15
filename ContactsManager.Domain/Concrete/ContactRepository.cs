@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ContactsManager.Domain.Entity;
+using System.Linq.Expressions;
 
 namespace ContactsManager.Domain.Concrete
 {
@@ -30,7 +31,7 @@ namespace ContactsManager.Domain.Concrete
 
         public void Delete(int id)
         {
-            var contactForDelete = Get(c => c.Id == id).FirstOrDefault();
+            var contactForDelete = context.Contacts.Find(id);
             if (contactForDelete != null)
             {
                 context.Contacts.Remove(contactForDelete);
@@ -52,9 +53,9 @@ namespace ContactsManager.Domain.Concrete
             return context.Contacts;
         }
 
-        public IEnumerable<Contact> Get(Func<Contact, bool> predicate)
+        public Contact Get(int id)
         {
-            return context.Contacts.Where(predicate);
+            return context.Contacts.Find(id);
         }
     }
 }

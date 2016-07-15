@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,7 +12,7 @@ namespace ContactsManager.Domain.Abstract
     {
         IQueryable<Contact> AsQueryable();
         IEnumerable<Contact> Get();
-        IEnumerable<Contact> Get(Func<Contact, bool> predicate);
+        Contact Get(int id);
         void Create(Contact entity);
         void Edit(int id, Contact entity);
         void Delete(int id);

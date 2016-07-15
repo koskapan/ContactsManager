@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.OData;
 
 namespace ContactsManager.Web.Controllers
 {
@@ -18,11 +19,13 @@ namespace ContactsManager.Web.Controllers
         {
             this.repository = repository;
         }
-                
+
         [HttpGet]
-        public IEnumerable<Contact> Get(int page_num  = 1, int page_size = 20)
+        [Route("all")]
+        [EnableQuery]
+        public IQueryable<Contact> Get()
         {
-            return repository.AsQueryable().Skip((page_num - 1) * page_size).Take(page_size);
+            return repository.AsQueryable();
         }
 
         // GET api/values/5
@@ -30,7 +33,7 @@ namespace ContactsManager.Web.Controllers
         [Route("{id}")]
         public Contact Get(int id)
         {
-            return repository.Get(c => c.Id == id).FirstOrDefault();
+            return repository.Get(id);
         }
 
         // POST api/values

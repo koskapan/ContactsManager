@@ -7,6 +7,9 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Web.Http;
 using System.Web.Http.OData;
+using System.Web.Http.OData.Query;
+using System.Net.Http;
+using System.Web.Http.OData.Extensions;
 
 namespace ContactsManager.Web.Controllers
 {
@@ -22,10 +25,20 @@ namespace ContactsManager.Web.Controllers
 
         [HttpGet]
         [Route("all")]
-        [EnableQuery]
-        public IQueryable<Contact> Get()
+        //[EnableQuery(PageSize = 40)]
+        public PageResult<Contact> Get(ODataQueryOptions<Contact> options)
         {
-            return repository.AsQueryable();
+            //return repository.AsQueryable();
+            ODataQuerySettings settings = new ODataQuerySettings
+            {
+                PageSize = 40
+            };
+            IQueryable results = options.ApplyTo(repository.AsQueryable(), settings);
+            return new PageResult<Contact>(
+                results as IEnumerable<Contact>,
+                Request.ODataProperties().NextLink,
+                Request.ODataProperties().TotalCount
+            );
         }
 
         // GET api/values/5

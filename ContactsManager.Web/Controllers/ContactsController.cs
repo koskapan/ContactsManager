@@ -10,6 +10,8 @@ using System.Web.Http.OData;
 using System.Web.Http.OData.Query;
 using System.Net.Http;
 using System.Web.Http.OData.Extensions;
+using ContactsManager.Web.Hubs;
+using Microsoft.AspNet.SignalR.Hubs;
 
 namespace ContactsManager.Web.Controllers
 {
@@ -17,10 +19,12 @@ namespace ContactsManager.Web.Controllers
     public class ContactsController : ApiController
     {
         private IContactRepository repository;
+        private ContactsHub contactsHub;
         
         public ContactsController(IContactRepository repository)
         {
             this.repository = repository;
+            contactsHub = new ContactsHub();
         }
 
         [HttpGet]

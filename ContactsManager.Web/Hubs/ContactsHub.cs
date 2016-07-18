@@ -10,9 +10,26 @@ namespace ContactsManager.Web.Hubs
 {
     public class ContactsHub: Hub
     {
-        public void Send(Contact entity)
+        IHubContext context;
+
+        public ContactsHub()
         {
-            Clients.AllExcept(Context.ConnectionId).sendData(entity);
+            context = GlobalHost.ConnectionManager.GetHubContext<ContactsHub>();
+        }
+
+        public void AddContact(Contact data)
+        {
+            context.Clients.All.addData(data);
+        }
+
+        public void RemoveContact(int id)
+        {
+            context.Clients.All.removeData(id);
+        }
+
+        public void EditContact(int id, Contact data)
+        {
+            context.Clients.All.editData(id, data);
         }
     }
 }

@@ -5,17 +5,25 @@
 <div ng-app="contactsApp">
     <div id="contactsController" ng-controller="contactsController">
         <p>Total items: {{contactsODataObject.Count}}</p>
-        <table>
-            <tr ng-repeat="contact in contactsODataObject.Items">
-                <td><img ng-src="{{contact.avatar}}" /></td>
-                <td>{{contact.id}}</td>
-                <td>{{contact.first_name}}</td>
-                <td>{{contact.last_name}}</td>
-                <td>{{contact.email}}</td>
-                <td>{{contact.job_title}} at {{contact.company_name}}</td>
-                <td>{{contact.phone}}</td>
-            </tr>
-        </table>
+        
+
+        <div class="contact" ng-repeat="contact in contactsODataObject.Items">
+            <div class="contact_avatar">
+                <img class="contact_avatar_img" ng-src="{{contact.avatar}}" />
+            </div>
+            <div class="contact_description">
+                <div class="contact_description_title">
+                    {{contact.first_name}} {{contact.last_name}}
+                </div>
+                <div class="contact_description_subtitle">
+                    {{contact.job_title}} at {{contact.company_name}}
+                </div>
+            </div>
+            <div class="contact_controlls">
+                <input type="button" value="Ed"/>
+                <input type="button" value="Del" />
+            </div>
+        </div>
 
         <p class="ajaxLoadingContacts"> Loading ... </p>
         <input type="button" id="btnLoadMore" ng-click="getObjects()" value="Load More"/>

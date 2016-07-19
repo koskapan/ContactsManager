@@ -7,7 +7,7 @@ function ($scope, contactsService) {
            $scope.getObjects();
         }
     });
-
+    $scope.query = '';
     $scope.contactsODataObject = contactsService.odataObject;
     $scope.prevPageLink = '';
     $scope.getObjects = function () {
@@ -37,4 +37,5 @@ function ($scope, contactsService) {
             });
         }
     }
+    $scope.getObjects();
 });

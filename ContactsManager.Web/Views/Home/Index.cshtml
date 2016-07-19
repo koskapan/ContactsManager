@@ -1,3 +1,31 @@
-﻿<html>
+﻿@{ 
+    ViewBag.Title = "Contacts Manager";
+}
 
-</html>
+<div ng-app="contactsApp">
+    <div id="contactsController" ng-controller="contactsController">
+        <p>Total items: {{contactsODataObject.Count}}</p>
+        <table>
+            <tr ng-repeat="contact in contactsODataObject.Items">
+                <td><img ng-src="{{contact.avatar}}" /></td>
+                <td>{{contact.id}}</td>
+                <td>{{contact.first_name}}</td>
+                <td>{{contact.last_name}}</td>
+                <td>{{contact.email}}</td>
+                <td>{{contact.job_title}} at {{contact.company_name}}</td>
+                <td>{{contact.phone}}</td>
+            </tr>
+        </table>
+
+        <p class="ajaxLoadingContacts"> Loading ... </p>
+        <input type="button" id="btnLoadMore" ng-click="getObjects()" value="Load More"/>
+
+    </div>
+</div>
+
+@section scripts {
+    @Scripts.Render("~/Scripts/angular.js")
+    @Scripts.Render("~/Scripts/app/app.js")
+    @Scripts.Render("~/Scripts/app/contactsService.js")
+    @Scripts.Render("~/Scripts/app/Controllers/contactsController.js")
+}

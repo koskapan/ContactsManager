@@ -16,8 +16,18 @@ textarea {
     max-width: 280px;
 }
 
+#additional_info {
+    margin: 1rem;
+}
+
 .ajaxLoadingContacts {
     display: none;
+    margin: 0 auto;
+    text-align: center;
+}
+
+#contactsController {
+    min-width: 700px;
 }
 
 .contact {
@@ -29,24 +39,28 @@ textarea {
     overflow:auto;
 }
 
+.contact:hover {
+    transform: scale(1.01,1.01);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 15px rgba(0,0,0,0.23);
+}
+
 .contact_description {
-    background-color: yellow;
 }
 
 .contact_description_title {
     font-weight: 800;
-    background-color: yellow;
 }
 
 .contact_description_subtitle {
     font-style: italic;
-    background-color: red;
 }
 
+.contact_details {
+    display: inline-block;
+}
 
 .contact_avatar_img {
-    border-radius: 50%;
-    background-color: burlywood
+    /*background-color: burlywood*/
 }
 
 .contact_avatar {
@@ -64,4 +78,30 @@ textarea {
 .contact_controlls {
     display: inline-block;
     float:right;
+}
+
+#btnControlls {
+    background-color: green;
+}
+
+.menuButton {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    border-radius: 50%;
+}
+
+#btnControlls {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.btnEdit {
+
+}
+
+.btnDelete {
+
 }

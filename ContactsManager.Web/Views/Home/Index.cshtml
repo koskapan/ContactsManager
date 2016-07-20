@@ -1,33 +1,56 @@
 ﻿@{ 
     ViewBag.Title = "Contacts Manager";
 }
-
 <div ng-app="contactsApp">
-    <div id="contactsController" ng-controller="contactsController">
-        <p>Total items: {{contactsODataObject.Count}}</p>
-        
 
-        <div class="contact" ng-repeat="contact in contactsODataObject.Items">
-            <div class="contact_avatar">
-                <img class="contact_avatar_img" ng-src="{{contact.avatar}}" />
-            </div>
-            <div class="contact_description">
-                <div class="contact_description_title">
-                    {{contact.first_name}} {{contact.last_name}}
-                </div>
-                <div class="contact_description_subtitle">
-                    {{contact.job_title}} at {{contact.company_name}}
-                </div>
-            </div>
-            <div class="contact_controlls">
-                <input type="button" value="Ed"/>
-                <input type="button" value="Del" />
+    <div id="contactsController" ng-controller="contactsController" class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3 col-md-3">
+                <form class="navbar-form" role="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search" name="q">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
-
-        <p class="ajaxLoadingContacts"> Loading ... </p>
-        <input type="button" id="btnLoadMore" ng-click="getObjects()" value="Load More"/>
-
+        <div id="additional_info" class="row">
+            <p>Total items: {{contactsODataObject.Count}}</p>
+        </div>
+        <div class="row">
+            <div class="contact" ng-repeat="contact in contactsODataObject.Items" >
+                <div class="contact_avatar">
+                    <img class="contact_avatar_img img-circle" ng-src="{{contact.avatar}}" />
+                </div>
+                <div class="contact_description">
+                    <div class="contact_description_title">
+                        {{contact.first_name}} {{contact.last_name}}
+                    </div>
+                    <div class="contact_description_subtitle" >
+                        {{contact.job_title}} at {{contact.company_name}}
+                    </div>
+                </div>
+                <div class="contact_details">
+                    <div class="contact_details_email">
+                        <a target="_blank" ng-href="mailto:{{contact.email}}"> <i class="glyphicon glyphicon-envelope"></i>  {{contact.email}}</a>
+                    </div>
+                    <div class="contact_details_phone">
+                        <span><i class="glyphicon glyphicon-phone"></i> {{contact.phone}}</span>
+                    </div>
+                </div>
+                <div class="contact_controlls">
+                    <button class="btn btn-default btn-default"> <i class="glyphicon glyphicon-pencil"></i> </button>
+                    <button class="btn btn-default btn-default label-danger"> <i class="glyphicon glyphicon-trash"></i> </button>
+                </div>
+            </div>
+        </div>
+        <div class="ajaxLoadingContacts"> <i class="glyphicon glyphicon-refresh w3-spin w3-jumbo"></i> </div>
+        
+        <div class="menuButton">
+            <button id="btnControlls" class="btn btn-default"><i class="glyphicon glyphicon-th-list"></i></button>
+        </div>
     </div>
 </div>
 

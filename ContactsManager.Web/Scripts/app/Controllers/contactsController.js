@@ -37,5 +37,10 @@ function ($scope, contactsService) {
             });
         }
     }
+
+    $scope.editObject = function (object) {
+        
+    }
+
     $scope.getObjects();
 });

@@ -39,29 +39,29 @@ function ($scope, contactsService) {
     }
 
     $scope.getObject = function (id) {
-        $scope.editableObject = $scope.contactsODataObject.Items[id];
-        $('#editWindow').show();
+        $scope.editableObject = $scope.contactsODataObject.Items[id-1];
     }
 
     $scope.createObject = function() {
-        $scope.editableObject = null;
-        $('editWindow').show();
+        $scope.editableObject = {
+            'id' : -1
+        };
     }
 
     $scope.editObject = function () {
         $.ajax({
-            url: id === null ? '/api/v1/contacts' : '/api/v1/contacts/' + id,
-            type: id === null ? 'POST' : 'PUT',
+            url: $scope.editableObject.id === -1 ? '/api/v1/contacts' : '/api/v1/contacts/' + $scope.editableObject.id,
+            type: $scope.editableObject.id === -1 ? 'POST' : 'PUT',
             data: $scope.editableObject,
             contentType: 'application/json;charset=utf-8',
             beforeSend: function() {
                 
             },
             success: function (data) {
-
+                console.log('OK');
             },
             fail: function (data) {
-
+                console.log('FAIL');
             },
             complete: function() {
                 $('#editWindow').hide();

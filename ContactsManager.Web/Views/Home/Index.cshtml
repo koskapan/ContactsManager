@@ -53,7 +53,7 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="editObject()">Save</button>
+                        <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="editObject(editableObject.id)">Save</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                     </div>
                 </div>
@@ -61,6 +61,29 @@
             </div>
         </div>
         <!--Edit window end-->
+
+
+        <!--Delete confirmation window start-->
+        <div id="deleteConfirmation" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Contact delete</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h1>Are you sure?</h1>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="deleteObject(editableObject.id)">Yes</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!--Delete confirmation window end-->
         <div id="additional_info" class="row">
             <p>Total items: {{contactsODataObject.Count}}</p>
         </div>        
@@ -72,6 +95,7 @@
                     <img class="contact_avatar_img img-circle" ng-src="{{contact.avatar}}" />
                 </div>
                 <div class="contact_description">
+                    {{contact.id}}
                     <div class="contact_description_title">
                         {{contact.first_name}} {{contact.last_name}}
                     </div>
@@ -89,7 +113,7 @@
                 </div>
                 <div class="contact_controlls">
                     <button class="btn btn-default btn-default" data-toggle="modal" data-target="#myModal" ng-click="getObject(contact.id)"> <i class="glyphicon glyphicon-pencil"></i> </button>
-                    <button class="btn btn-default btn-default label-danger"> <i class="glyphicon glyphicon-trash"></i> </button>
+                    <button class="btn btn-default btn-default label-danger" data-toggle="modal" data-target="#deleteConfirmation" ng-click="getObject(contact.id)"> <i class="glyphicon glyphicon-trash"></i> </button>
                 </div>
             </div>
         </div>
@@ -97,7 +121,7 @@
         <div class="ajaxLoadingContacts"> <i class="glyphicon glyphicon-refresh w3-spin w3-jumbo"></i> </div>
         
         <div class="menuButton">
-            <button id="btnControlls" class="btn btn-default" data-toggle="modal" data-target="#myModal" ng-click="createObject()"><i class="glyphicon glyphicon-plus"></i></button>
+            <button id="btnControlls" class="btn btn-default" data-toggle="modal" data-target="#myModal" ><i class="glyphicon glyphicon-plus"></i></button>
         </div>
     </div>
 </div>

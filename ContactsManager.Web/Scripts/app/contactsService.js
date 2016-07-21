@@ -4,6 +4,6 @@ contactsApp.factory('contactsService', function () {
         'odataObject': {
             'Count': 0,
             'Items': [],
-            'NextPageLink': '/api/v1/contacts/all?$inlinecount=allpages'
+            'NextPageLink': '/api/contacts/all?$inlinecount=allpages'
         }};
 });

@@ -15,7 +15,6 @@ using Microsoft.AspNet.SignalR.Hubs;
 
 namespace ContactsManager.Web.Controllers
 {
-    [RoutePrefix("api/v1/contacts")]
     public class ContactsController : ApiController
     {
         private IContactRepository repository;
@@ -28,7 +27,7 @@ namespace ContactsManager.Web.Controllers
         }
 
         [HttpGet]
-        [Route("all")]
+        [Route("api/contacts/all")]
         //[EnableQuery(PageSize = 40)]
         public PageResult<Contact> Get(ODataQueryOptions<Contact> options)
         {
@@ -47,7 +46,6 @@ namespace ContactsManager.Web.Controllers
 
         // GET api/values/5
         [HttpGet]
-        [Route("{id}")]
         public Contact Get(int id)
         {
             return repository.Get(id);

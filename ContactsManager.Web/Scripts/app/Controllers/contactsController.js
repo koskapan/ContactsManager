@@ -38,8 +38,35 @@ function ($scope, contactsService) {
         }
     }
 
-    $scope.editObject = function (object) {
-        
+    $scope.getObject = function (id) {
+        $scope.editableObject = $scope.contactsODataObject.Items[id];
+        $('#editWindow').show();
+    }
+
+    $scope.createObject = function() {
+        $scope.editableObject = null;
+        $('editWindow').show();
+    }
+
+    $scope.editObject = function () {
+        $.ajax({
+            url: id === null ? '/api/v1/contacts' : '/api/v1/contacts/' + id,
+            type: id === null ? 'POST' : 'PUT',
+            data: $scope.editableObject,
+            contentType: 'application/json;charset=utf-8',
+            beforeSend: function() {
+                
+            },
+            success: function (data) {
+
+            },
+            fail: function (data) {
+
+            },
+            complete: function() {
+                $('#editWindow').hide();
+            }
+        });
     }
 
     $scope.getObjects();

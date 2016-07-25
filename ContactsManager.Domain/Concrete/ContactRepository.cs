@@ -39,11 +39,11 @@ namespace ContactsManager.Domain.Concrete
             }
         }
 
-        public void Edit(int id, Contact entity)
+        public void Edit(int id, Contact editObject)
         {
-            if (entity.Id == id)
+            if (editObject.Id == id)
             {
-                context.Entry(entity).State = System.Data.Entity.EntityState.Modified;
+                context.Entry(editObject).State = System.Data.Entity.EntityState.Modified;
                 context.SaveChanges();
             }
         }

@@ -12,6 +12,7 @@ using System.Net.Http;
 using System.Web.Http.OData.Extensions;
 using ContactsManager.Web.Hubs;
 using Microsoft.AspNet.SignalR.Hubs;
+using Newtonsoft.Json;
 
 namespace ContactsManager.Web.Controllers
 {
@@ -62,6 +63,9 @@ namespace ContactsManager.Web.Controllers
         [HttpPut]
         public void Put(int id, [FromBody]Contact value)
         {
+            /*
+            var jsonStr = value.ToString();
+            var val = JsonConvert.DeserializeObject<Contact>(jsonStr);*/
             repository.Edit(id, value);
         }
 

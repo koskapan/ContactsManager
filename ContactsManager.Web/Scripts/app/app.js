@@ -1,1 +1,6 @@
-﻿var contactsApp = angular.module('contactsApp', []);
+﻿(
+    function () {
+        'use strict';
+        var contactsApp = angular.module('contactsApp', []);
+    }
+)();

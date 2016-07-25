@@ -3,7 +3,7 @@
 }
 <div ng-app="contactsApp">
 
-    <div id="contactsController" ng-controller="contactsController" class="container-fluid">
+    <div id="contactsController" ng-controller="contactsController" class="container-fluid" >
         <div class="row">
             <div class="col-sm-3 col-md-3">
                 <form class="navbar-form" role="search">
@@ -31,9 +31,9 @@
                         <form method="post" role="form">
                             <div class="form-group">
                                 <label>First Name</label><br>
-                                <input type="text" name="first_name" id="first_name" class="form-control" value="{{editableObject.first_name}}"><br>
+                                <input type="text" name="first_name" id="first_name" class="form-control" ng-model="editableObject.first_name" value="{{editableObject.first_name}}"><br>
                                 <label>Last Name</label><br>
-                                <input type="text" name="first_name" id="first_name" class="form-control" value="{{editableObject.last_name}}"><br>
+                                <input type="text" name="first_name" id="first_name" class="form-control" ng-model="editableObject.last_name" value="{{editableObject.last_name}}"><br>
                                 <label>Gender</label><br>
                                 <div class="radio">
                                     <label><input type="radio" ng-model="editableObject.gender" value="Male" name="optradio">Male</label>
@@ -42,13 +42,13 @@
                                     <label><input type="radio" ng-model="editableObject.gender" value="Female" name="optradio">Female</label>
                                 </div>
                                 <label>Job title</label><br>
-                                <input type="text" name="first_name" id="first_name" class="form-control" value="{{editableObject.job_title}}"><br>
+                                <input type="text" name="first_name" id="first_name" class="form-control"  ng-model="editableObject.job_title"  value="{{editableObject.job_title}}"><br>
                                 <label>Company name</label><br>
-                                <input type="text" name="first_name" id="first_name" class="form-control" value="{{editableObject.company_name}}"><br>
+                                <input type="text" name="first_name" id="first_name" class="form-control"  ng-model="editableObject.company_name"  value="{{editableObject.company_name}}"><br>
                                 <label>Email</label><br>
-                                <input type="text" name="first_name" id="first_name" class="form-control" value="{{editableObject.email}}"><br>
+                                <input type="text" name="first_name" id="first_name" class="form-control"  ng-model="editableObject.email"  value="{{editableObject.email}}"><br>
                                 <label>Phone</label><br>
-                                <input type="text" name="first_name" id="first_name" class="form-control" value="{{editableObject.phone}}"><br>
+                                <input type="text" name="first_name" id="first_name" class="form-control"  ng-model="editableObject.phone"  value="{{editableObject.phone}}"><br>
                             </div>
                         </form>
                     </div>
@@ -121,7 +121,7 @@
         <div class="ajaxLoadingContacts"> <i class="glyphicon glyphicon-refresh w3-spin w3-jumbo"></i> </div>
         
         <div class="menuButton">
-            <button id="btnControlls" class="btn btn-default" data-toggle="modal" data-target="#myModal" ><i class="glyphicon glyphicon-plus"></i></button>
+            <button id="btnControlls" class="btn btn-default" data-toggle="modal" data-target="#myModal" ng-click="getObject(null)"><i class="glyphicon glyphicon-plus"></i></button>
         </div>
     </div>
 </div>

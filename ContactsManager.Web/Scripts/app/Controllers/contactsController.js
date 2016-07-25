@@ -1,88 +1,83 @@
-﻿
-contactsApp.controller('contactsController',
-function ($scope, contactsService) {
+﻿(function () {
+    'use strict';
+    var contactsApp = angular.module('contactsApp');
+    contactsApp.controller('contactsController',
+    function ($scope, contactsService, $http) {
 
-    $(window).scroll(function () {
-        if ($(window).scrollTop() + $(window).height() === $(document).height()) {
-           $scope.getObjects();
+        $(window).scroll(function () {
+            if ($(window).scrollTop() + $(window).height() === $(document).height()) {
+                $scope.getObjects();
+            }
+        });
+        $scope.query = '';
+        $scope.contactsODataObject = contactsService.odataObject;
+        $scope.prevPageLink = '';
+
+        $scope.getObjects = function () {
+            $http.get($scope.contactsODataObject.NextPageLink).success(function (data) {
+                $scope.contactsODataObject.Count = data.Count;
+                $scope.contactsODataObject.NextPageLink = data.NextPageLink;
+                $scope.contactsODataObject.Items.push.apply($scope.contactsODataObject.Items, data.Items);
+            });        
         }
-    });
-    $scope.query = '';
-    $scope.contactsODataObject = contactsService.odataObject;
-    $scope.prevPageLink = '';
-    $scope.getObjects = function () {
-        if ($scope.contactsODataObject.NextPageLink !== $scope.prevPageLink) {
+
+        $scope.getObject = function (id) {
+            if (id !== null)
+                $scope.editableObject = angular.copy($.grep($scope.contactsODataObject.Items, function (e) { return e.id == id; })[0]);
+            else
+                $scope.editableObject = {  }
+            console.log($scope.editableObject);
+        }
+
+        $scope.deleteObject = function (id) {
+            console.log(id);
             $.ajax({
-                url: $scope.contactsODataObject.NextPageLink,
-                type: 'GET',
-                contentType: 'application/json; charset=utf-8',
+                url: '/api/contacts/' + id,
+                type: 'DELETE',
                 beforeSend: function () {
-                    $('.ajaxLoadingContacts').show();
+
                 },
                 success: function (data) {
-                    //$scope.prevPageLink = $scope.contactsODataObject.NextPageLink;
-                    $scope.contactsODataObject.Items = $scope.contactsODataObject.Items.concat(data.Items);
-                    $scope.contactsODataObject.NextPageLink = data.NextPageLink;
-                    $scope.contactsODataObject.Count = data.Count;
-                    $scope.$apply();
                     console.log('OK');
                 },
                 fail: function (data) {
                     console.log('FAIL');
-                    console.log(data);
                 },
                 complete: function () {
-                    $('.ajaxLoadingContacts').hide();
+                    $('#editWindow').hide();
                 }
             });
         }
-    }
 
-    $scope.getObject = function (id) {
-        $scope.editableObject = $.grep($scope.contactsODataObject.Items, function (e) { return e.id == id; })[0];
-        console.log($scope.editableObject);
-    }
+        $scope.editObject = function (id) {
+            console.log($scope.editableObject);
+            console.log(JSON.stringify($scope.editableObject));
 
-    $scope.deleteObject = function (id) {
-        console.log(id);
-        $.ajax({
-            url: '/api/contacts/' + id,
-            type: 'DELETE',
-            beforeSend: function () {
+            var ajax_url = '';
+            var ajax_method = '';
 
-            },
-            success: function (data) {
-                console.log('OK');
-            },
-            fail: function (data) {
-                console.log('FAIL');
-            },
-            complete: function () {
-                $('#editWindow').hide();
+            if (id !== undefined) {
+                ajax_url = '/api/contacts/' + id;
+                ajax_method = 'PUT';
             }
-        });
-    }
-
-    $scope.editObject = function (id) {
-        $.ajax({
-            url: '/api/contacts/' + id,
-            type: 'PUT',
-            data: $scope.editableObject,
-            contentType: 'application/json;charset=utf-8',
-            beforeSend: function() {
-                
-            },
-            success: function (data) {
-                console.log('OK');
-            },
-            fail: function (data) {
-                console.log('FAIL');
-            },
-            complete: function() {
-                $('#editWindow').hide();
+            else {
+                ajax_url = '/api/contacts/';
+                ajax_method = 'POST';
             }
-        });
-    }
 
-    $scope.getObjects();
-});
+            $http({
+                url: ajax_url,
+                method: ajax_method,
+                data: $scope.editableObject
+            }).success(function (data) {
+                console.log('OK');
+            });
+        }
+
+        $scope.createObject = function () {
+
+        }
+
+        $scope.getObjects();
+    });
+})();

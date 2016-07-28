@@ -26,11 +26,9 @@
                 $scope.editableObject = angular.copy($.grep($scope.contactsODataObject.Items, function (e) { return e.id == id; })[0]);
             else
                 $scope.editableObject = {  }
-            console.log($scope.editableObject);
         }
 
         $scope.deleteObject = function (id) {
-            console.log(id);
             $.ajax({
                 url: '/api/contacts/' + id,
                 type: 'DELETE',
@@ -38,20 +36,15 @@
 
                 },
                 success: function (data) {
-                    console.log('OK');
                 },
                 fail: function (data) {
-                    console.log('FAIL');
                 },
                 complete: function () {
-                    $('#editWindow').hide();
                 }
             });
         }
 
         $scope.editObject = function (id) {
-            console.log($scope.editableObject);
-            console.log(JSON.stringify($scope.editableObject));
 
             var ajax_url = '';
             var ajax_method = '';
@@ -70,9 +63,11 @@
                     method: ajax_method,
                     data: $scope.editableObject
                 }).success(function (data) {
-                    console.log('OK');
                 });
             }
+        }
+
+        $scope.search = function () {
         }
         
         var hub = $.connection.contactsHub;
@@ -91,6 +86,7 @@
                 if ($scope.contactsODataObject.Items[i].id == id)
                 {
                     $scope.contactsODataObject.Items[i] = object;
+                    $scope.$apply();
                     break;
                 }
             }

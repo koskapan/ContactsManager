@@ -23,39 +23,64 @@
 
                 <!-- Modal content-->
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Contact Info</h4>
-                    </div>
-                    <div class="modal-body">
-                        <form method="post" role="form">
-                            <div class="form-group">
+                    <form name="myForm" novalidate>
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Contact Info</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group" ng-class="{ 'has-error' : myForm.avatar.$invalid && !myForm.avatar.$pristine }">
+                                <label>Avatar</label><br>
+                                <img class="contact_avatar_img img-circle" ng-src="{{editableObject.avatar}}" />
+                                <input type="text" name="avatar" id="avatar" class="form-control" ng-model="editableObject.avatar" required>
+                                <p ng-show="myForm.avatar.$invalid && !myForm.avatar.$pristine" class="help-block">You avatar url name is required.</p>
+                            </div>
+                            <div class="form-group" ng-class="{ 'has-error' : myForm.first_name.$invalid && !myForm.first_name.$pristine }">
                                 <label>First Name</label><br>
-                                <input type="text" name="first_name" id="first_name" class="form-control" ng-model="editableObject.first_name" value="{{editableObject.first_name}}"><br>
+                                <input type="text" name="first_name" id="first_name" class="form-control" ng-model="editableObject.first_name" required>
+                                <p ng-show="myForm.first_name.$invalid && !myForm.first_name.$pristine" class="help-block">You first name is required.</p>
+                            </div>
+                            <div class="form-group" ng-class="{ 'has-error' : myForm.last_name.$invalid && !myForm.last_name.$pristine }">
                                 <label>Last Name</label><br>
-                                <input type="text" name="first_name" id="first_name" class="form-control" ng-model="editableObject.last_name" value="{{editableObject.last_name}}"><br>
+                                <input type="text" name="last_name" id="last_name" class="form-control" ng-model="editableObject.last_name" required>
+                                <p ng-show="myForm.last_name.$invalid && !myForm.last_name.$pristine" class="help-block">You last name is required.</p>
+                            </div>
+                            <div class="form-group" ng-class="{ 'has-error' : myForm.optradio.$invalid && !myForm.optradio.$pristine }">
                                 <label>Gender</label><br>
                                 <div class="radio">
-                                    <label><input type="radio" ng-model="editableObject.gender" value="Male" name="optradio">Male</label>
+                                    <label><input type="radio" ng-model="editableObject.gender" value="Male" name="optradio" required>Male</label>
                                 </div>
                                 <div class="radio">
-                                    <label><input type="radio" ng-model="editableObject.gender" value="Female" name="optradio">Female</label>
+                                    <label><input type="radio" ng-model="editableObject.gender" value="Female" name="optradio" required>Female</label>
                                 </div>
-                                <label>Job title</label><br>
-                                <input type="text" name="first_name" id="first_name" class="form-control"  ng-model="editableObject.job_title"  value="{{editableObject.job_title}}"><br>
-                                <label>Company name</label><br>
-                                <input type="text" name="first_name" id="first_name" class="form-control"  ng-model="editableObject.company_name"  value="{{editableObject.company_name}}"><br>
-                                <label>Email</label><br>
-                                <input type="text" name="first_name" id="first_name" class="form-control"  ng-model="editableObject.email"  value="{{editableObject.email}}"><br>
-                                <label>Phone</label><br>
-                                <input type="text" name="first_name" id="first_name" class="form-control"  ng-model="editableObject.phone"  value="{{editableObject.phone}}"><br>
+                                <p ng-show="myForm.optradio.$invalid && !myForm.optradio.$pristine" class="help-block">You gender is required.</p>
                             </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="editObject(editableObject.id)">Save</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                    </div>
+                            <div class="form-group" ng-class="{ 'has-error' : myForm.job_title.$invalid && !myForm.job_title.$pristine }">
+                                <label>Job title</label><br>
+                                <input type="text" name="job_title" id="job_title" class="form-control" ng-model="editableObject.job_title" required>
+                                <p ng-show="myForm.job_title.$invalid && !myForm.job_title.$pristine" class="help-block">You job title is required.</p>
+                            </div>
+                            <div class="form-group" ng-class="{ 'has-error' : myForm.company_name.$invalid && !myForm.company_name.$pristine }">
+                                <label>Company name</label><br>
+                                <input type="text" name="company_name" id="company_name" class="form-control" ng-model="editableObject.company_name" required>
+                                <p ng-show="myForm.company_name.$invalid && !myForm.company_name.$pristine" class="help-block">You company name is required.</p>
+                            </div>
+                            <div class="form-group" ng-class="{ 'has-error' : myForm.email.$invalid && !myForm.email.$pristine }">
+                                <label>Email</label>
+                                <input type="email" name="email" id="email" class="form-control" ng-model="editableObject.email" required>
+                                <p ng-show="myForm.email.$invalid && !myForm.email.$pristine" class="help-block">Enter a valid email</p>
+                            </div>
+                            <div class="form-group" ng-class="{ 'has-error' : myForm.phone.$invalid && !myForm.phone.$pristine }">
+                                <label>Phone</label>
+                                <input type="text" name="phone" id="phone" class="form-control" ng-model="editableObject.phone" required>
+                                <p ng-show="myForm.phone.$invalid && !myForm.phone.$pristine" class="help-block">You phone is required.</p>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-success" data-dismiss="modal" ng-disabled="userForm.$invalid"  ng-click="editObject(editableObject.id)">Save</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </form>
                 </div>
 
             </div>
@@ -92,7 +117,7 @@
         <div class="row">
             <div class="contact" data-id="{{contact.id}}" ng-repeat="contact in contactsODataObject.Items" >
                 <div class="contact_avatar">
-                    <img class="contact_avatar_img img-circle" ng-src="{{contact.avatar}}" />
+                    <img class="contact_avatar_img img-circle" ng-src="{{contact.avatar}}"/>
                 </div>
                 <div class="contact_description">
                     {{contact.id}}
@@ -129,7 +154,7 @@
 @section scripts {
     @Scripts.Render("~/bundles/signalr")
     @Scripts.Render("/signalr/hubs")
-    @Scripts.Render("~/Scripts/contactsHub.js")
+    @Scripts.Render("~/Scripts/index.js")
     @Scripts.Render("~/Scripts/angular.js")
     @Scripts.Render("~/Scripts/app/app.js")
     @Scripts.Render("~/Scripts/app/contactsService.js")

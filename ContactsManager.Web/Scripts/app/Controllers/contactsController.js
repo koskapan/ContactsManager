@@ -64,20 +64,17 @@
                 ajax_url = '/api/contacts/';
                 ajax_method = 'POST';
             }
-
-            $http({
-                url: ajax_url,
-                method: ajax_method,
-                data: $scope.editableObject
-            }).success(function (data) {
-                console.log('OK');
-            });
+            if ($scope.myForm.$valid) {
+                $http({
+                    url: ajax_url,
+                    method: ajax_method,
+                    data: $scope.editableObject
+                }).success(function (data) {
+                    console.log('OK');
+                });
+            }
         }
-
-        $scope.createObject = function () {
-
-        }
-
+        
         var hub = $.connection.contactsHub;
 
         hub.client.addData = function (object) {
@@ -100,7 +97,13 @@
         }
 
         hub.client.removeData = function (id) {
-            $('.contact[data-id="' + id + '"]').remove();
+            for (var i = 0; $scope.contactsODataObject.Items.length; i++) {
+                if ($scope.contactsODataObject.Items[i].id == id) {
+                    $scope.contactsODataObject.Items.splice(i, 1);
+                    $scope.$apply();
+                    break;
+                }
+            }
         }
 
         $.connection.hub.start()
@@ -110,8 +113,7 @@
            .fail(function () {
                console.log('SignalR fail');
            });
-
-
+        
         $scope.getObjects();
     });
 })();

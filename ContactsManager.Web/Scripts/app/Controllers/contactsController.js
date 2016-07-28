@@ -78,6 +78,40 @@
 
         }
 
+        var hub = $.connection.contactsHub;
+
+        hub.client.addData = function (object) {
+            var loadedContactsLength = $('.contact').length;
+            if ($scope.contactsODataObject.Count == loadedContactsLength)
+            {
+                $scope.getObjects();
+            }
+        }
+
+        hub.client.editData = function (id, object) {
+            for (var i =0; $scope.contactsODataObject.Items.length; i++)
+            {
+                if ($scope.contactsODataObject.Items[i].id == id)
+                {
+                    $scope.contactsODataObject.Items[i] = object;
+                    break;
+                }
+            }
+        }
+
+        hub.client.removeData = function (id) {
+            $('.contact[data-id="' + id + '"]').remove();
+        }
+
+        $.connection.hub.start()
+           .done(function () {
+               console.log('SignalR success');
+           })
+           .fail(function () {
+               console.log('SignalR fail');
+           });
+
+
         $scope.getObjects();
     });
 })();

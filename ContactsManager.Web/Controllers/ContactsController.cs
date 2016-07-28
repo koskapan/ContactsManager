@@ -57,16 +57,15 @@ namespace ContactsManager.Web.Controllers
         public void Post([FromBody]Contact value)
         {
             repository.Create(value);
+            contactsHub.AddContact(value);
         }
 
         // PUT api/values/5
         [HttpPut]
         public void Put(int id, [FromBody]Contact value)
         {
-            /*
-            var jsonStr = value.ToString();
-            var val = JsonConvert.DeserializeObject<Contact>(jsonStr);*/
             repository.Edit(id, value);
+            contactsHub.EditContact(id, value);
         }
 
         // DELETE api/values/5
@@ -74,6 +73,7 @@ namespace ContactsManager.Web.Controllers
         public void Delete(int id)
         {
             repository.Delete(id);
+            contactsHub.RemoveContact(id);
         }
     }
 }

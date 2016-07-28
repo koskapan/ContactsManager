@@ -90,7 +90,7 @@
         
         <!-- Contact list start -->
         <div class="row">
-            <div class="contact" ng-repeat="contact in contactsODataObject.Items" >
+            <div class="contact" data-id="{{contact.id}}" ng-repeat="contact in contactsODataObject.Items" >
                 <div class="contact_avatar">
                     <img class="contact_avatar_img img-circle" ng-src="{{contact.avatar}}" />
                 </div>
@@ -127,6 +127,9 @@
 </div>
 
 @section scripts {
+    @Scripts.Render("~/bundles/signalr")
+    @Scripts.Render("/signalr/hubs")
+    @Scripts.Render("~/Scripts/contactsHub.js")
     @Scripts.Render("~/Scripts/angular.js")
     @Scripts.Render("~/Scripts/app/app.js")
     @Scripts.Render("~/Scripts/app/contactsService.js")

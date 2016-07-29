@@ -32,6 +32,11 @@ namespace ContactsManager.Domain.Entity
         [JsonProperty("avatar")]
         public string AvatarUrl { get; set; }
 
+        public override string ToString()
+        {
+            string contactSummary = FirstName + " " + LastName + " " + JobTitle + " " + CompanyName + " " + Email + " " + Phone;
+            return contactSummary;
+        }
     }
 
     public enum Genders { Female, Male }

@@ -30,19 +30,41 @@ namespace ContactsManager.Web.Controllers
         [HttpGet]
         [Route("api/contacts/all")]
         //[EnableQuery(PageSize = 40)]
-        public PageResult<Contact> Get(ODataQueryOptions<Contact> options)
+        public PageResult<Contact> Get(ODataQueryOptions<Contact> options, string q = null, int ps = 40)
         {
             //return repository.AsQueryable();
             ODataQuerySettings settings = new ODataQuerySettings
             {
-                PageSize = 40
+                PageSize = ps
             };
-            IQueryable results = options.ApplyTo(repository.AsQueryable(), settings);
+            IQueryable queryedRepository = ApplySearchString(repository.AsQueryable(), q);
+            IQueryable results = options.ApplyTo(queryedRepository, settings);
             return new PageResult<Contact>(
                 results as IEnumerable<Contact>,
                 Request.ODataProperties().NextLink,
                 Request.ODataProperties().TotalCount
             );
+        }
+
+        public static IQueryable ApplySearchString(IQueryable collection, string query)
+        {
+            IQueryable<Contact> result = (IQueryable<Contact>)collection;
+            if (query != null && query != "undefined")
+            {
+                string[] separatedQueryString = query.Split(' ');
+                for (int i = 0; i < separatedQueryString.Length; i++)
+                {
+                    result = result.Where(c =>
+                        c.FirstName.ToLower().Contains(separatedQueryString[i].ToLower()) ||
+                        c.LastName.ToLower().Contains(separatedQueryString[i].ToLower()) ||
+                        c.JobTitle.ToLower().Contains(separatedQueryString[i].ToLower()) ||
+                        c.CompanyName.ToLower().Contains(separatedQueryString[i].ToLower()) ||
+                        c.Email.ToLower().Contains(separatedQueryString[i].ToLower()) ||
+                        c.Phone.ToLower().Contains(separatedQueryString[i].ToLower())
+                    );
+                }
+            }
+            return result;
         }
 
         // GET api/values/5

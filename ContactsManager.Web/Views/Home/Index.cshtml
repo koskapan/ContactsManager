@@ -8,14 +8,16 @@
             <div class="col-sm-3 col-md-3">
                 <form class="navbar-form" role="search">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search" name="q" ng-model="searchQuery">
+                        <input type="text" class="form-control" placeholder="Search" name="q" ng-model="searchString">
                         <div class="input-group-btn">
-                            <button class="btn btn-default" type="submit" ng-click="search()"><i class="glyphicon glyphicon-search"></i></button>
+                            <button class="btn btn-default" type="button" ng-click="search()"><i class="glyphicon glyphicon-search"></i></button>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
+
+        
 
         <!--Edit window start-->
         <div id="myModal" class="modal fade" role="dialog">
@@ -109,20 +111,32 @@
             </div>
         </div>
         <!--Delete confirmation window end-->
-        <div id="additional_info" class="row">
+        <div id="additional_info" class="row ng-cloak">
             <p>Total items: {{contactsODataObject.Count}}</p>
         </div>        
-        
+        <div class="row order_controlls">
+            <div class="btn-group">
+                <button class="btn btn-default" ng-click="sort('LastName')">Last Name <i class="glyphicon" ng-class="{'glyphicon-chevron-down': sortType.type=='LastName' && !sortType.reversed, 'glyphicon-chevron-up': sortType.type=='LastName' && sortType.reversed}"></i></button>
+                <button class="btn btn-default" ng-click="sort('FirstName')">First Name <i class="glyphicon" ng-class="{'glyphicon-chevron-down': sortType.type=='FirstName' && !sortType.reversed, 'glyphicon-chevron-up': sortType.type=='FirstName' && sortType.reversed}"></i></button>
+                <button class="btn btn-default" ng-click="sort('Id')">Date of Creation <i class="glyphicon" ng-class="{'glyphicon-chevron-down': sortType.type=='Id' && !sortType.reversed, 'glyphicon-chevron-up': sortType.type=='Id' && sortType.reversed}"></i></button>
+            </div>
+        </div>
         <!-- Contact list start -->
-        <div class="row">
-            <div class="contact" data-id="{{contact.id}}" ng-repeat="contact in contactsODataObject.Items" >
+        <div class="row ng-cloak">
+            <div class="contact" data-id="{{contact.id}}" ng-repeat="contact in contactsODataObject.Items" ng-cloak >
                 <div class="contact_avatar">
                     <img class="contact_avatar_img img-circle" ng-src="{{contact.avatar}}"/>
                 </div>
                 <div class="contact_description">
-                    {{contact.id}}
                     <div class="contact_description_title">
-                        {{contact.first_name}} {{contact.last_name}}
+                         <div ng-switch="sortType.type">
+                             <div ng-switch-when="FirstName">
+                                 {{contact.first_name}} {{contact.last_name}}
+                             </div>
+                             <div ng-switch-default>
+                                 {{contact.last_name}} {{contact.first_name}}
+                             </div>
+                         </div>
                     </div>
                     <div class="contact_description_subtitle" >
                         {{contact.job_title}} at {{contact.company_name}}
@@ -137,8 +151,8 @@
                     </div>
                 </div>
                 <div class="contact_controlls">
-                    <button class="btn btn-default btn-default" data-toggle="modal" data-target="#myModal" ng-click="getObject(contact.id)"> <i class="glyphicon glyphicon-pencil"></i> </button>
-                    <button class="btn btn-default btn-default label-danger" data-toggle="modal" data-target="#deleteConfirmation" ng-click="getObject(contact.id)"> <i class="glyphicon glyphicon-trash"></i> </button>
+                    <button class="btn btn-default btn-default btnEdit" data-toggle="modal" data-target="#myModal" ng-click="getObject(contact.id)"> <i class="glyphicon glyphicon-pencil"></i> </button>
+                    <button class="btn btn-default btn-default label-danger btnDelete" data-toggle="modal" data-target="#deleteConfirmation" ng-click="getObject(contact.id)"> <i class="glyphicon glyphicon-trash"></i> </button>
                 </div>
             </div>
         </div>
@@ -146,7 +160,7 @@
         <div class="ajaxLoadingContacts"> <i class="glyphicon glyphicon-refresh w3-spin w3-jumbo"></i> </div>
         
         <div class="menuButton">
-            <button id="btnControlls" class="btn btn-default" data-toggle="modal" data-target="#myModal" ng-click="getObject(null)"><i class="glyphicon glyphicon-plus"></i></button>
+            <button id="btnControlls" class="btn btn-default label-success" data-toggle="modal" data-target="#myModal" ng-click="getObject(null)"><i class="glyphicon glyphicon-plus"></i></button>
         </div>
     </div>
 </div>

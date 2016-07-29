@@ -3,6 +3,10 @@
     padding-bottom: 20px;
 }
 
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak { 
+  display: none; 
+} 
+
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
@@ -20,6 +24,15 @@ textarea {
     margin: 1rem;
 }
 
+.highlighted {
+    background: yellow;
+}
+
+.order_controlls {
+    width: 100%;
+    margin: 0 auto;
+}
+
 .ajaxLoadingContacts {
     display: none;
     margin: 0 auto;
@@ -27,24 +40,26 @@ textarea {
 }
 
 #contactsController {
-    min-width: 700px;
+    min-width: 800px;
 }
 
 .contact {
     background: #fff;
     border-radius: 2px;
     margin: 1rem;
+    padding: 3px;
     border: solid 1px lightgray;
     box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
     overflow:auto;
 }
 
-.contact:hover {
+.contact:hover{
     transform: scale(1.01,1.01);
     box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 15px rgba(0,0,0,0.23);
 }
 
 .contact_description {
+    width: 300px;
 }
 
 .contact_description_title {
@@ -60,14 +75,14 @@ textarea {
 }
 
 .contact_avatar_img {
-    /*background-color: burlywood*/
+    width: 50px;
+    height: 50px;
+    margin: 0px;
+    vertical-align: bottom;
 }
 
 .contact_avatar {
     display:inline-block;
-    margin: 3px;
-    width: 50px;
-    height: 50px;
 }
 
 .contact_description {
@@ -76,12 +91,20 @@ textarea {
 
 
 .contact_controlls {
-    display: inline-block;
     float:right;
+    margin: 10px;
+    width: 100px;
+    display: inline-block;
+}
+
+.btnDelete {
+    float: right;
 }
 
 #btnControlls {
-    background-color: green;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
 }
 
 .menuButton {
@@ -95,22 +118,4 @@ textarea {
 .menuButton:hover {
     transform: scale(1.01,1.01);
     box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 15px rgba(0,0,0,0.23);
-}
-
-#btnControlls {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-}
-
-#editWindow {
-    display: none;
-}
-
-.btnEdit {
-
-}
-
-.btnDelete {
-
 }
